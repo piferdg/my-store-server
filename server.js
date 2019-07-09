@@ -9,18 +9,33 @@ const app = express()
 app.use(cors())
 app.use(morgan('dev'))
 
+//Sequelize Models
+const db = require('./models')
+const Category = db.Category
 
 //Router files
 
 
 
 //Routes
-app.get('/api/test', (req, res, next) => {
+app.get('/api/test', (req, res) => {
   res.json({
     message: 'Route Working'
   })
-  const error = new Error('it blew up')
-  next(error)
+  // const error = new Error('it blew up')
+  // next(error)
+})
+
+app.get('/api/categories', (req, res, next) => {
+  Category.findAll()
+    .then(categories => {
+      res.json({
+        categories
+      })
+    })
+    .catch(error => {
+      next(error)
+    })
 })
 
 

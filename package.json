@@ -27,6 +27,7 @@
     "experss": "0.0.1-security",
     "morgan": "^1.9.1",
     "pg": "^7.11.0",
+    "pg-hstore": "^2.3.3",
     "sequelize": "^5.9.4",
     "sequelize-cli": "^5.5.0"
   }
