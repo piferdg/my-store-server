@@ -19,6 +19,8 @@ app.get('/api/test', (req, res, next) => {
   res.json({
     message: 'Route Working'
   })
+  const error = new Error('it blew up')
+  next(error)
 })
 
 
@@ -27,6 +29,7 @@ app.get('/api/test', (req, res, next) => {
 app.use(notFound)
 app.use(errorHandler)
 
+// eslint-disable-next-line
 function notFound(req, res, next) {
   res.status(404).send({error: 'Not found!', status: 404, url: req.originalUrl})
 }
