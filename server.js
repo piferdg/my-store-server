@@ -17,7 +17,6 @@ const Product = db.Product
 //Router files
 
 
-
 //Routes
 app.get('/api/test', (req, res) => {
   res.json({
@@ -42,7 +41,9 @@ app.get('/api/categories', (req, res, next) => {
 })
 
 app.get('/api/products', (req, res, next) => {
-  Product.findAll()
+  Product.findAll({
+    include: [{ model: Category }]
+  })
     .then(products => {
       res.json({
         products
