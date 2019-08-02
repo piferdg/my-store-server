@@ -54,6 +54,22 @@ app.get('/api/products', (req, res, next) => {
     })
 })
 
+app.get('/api/products/:id', (req, res, next) => {
+  const id = req.params.id
+  
+  Product.findByPk(id, {
+    include: [{ model: Category }]
+  })
+    .then(product => {
+      res.json({
+        product
+      })
+    })
+    .catch(error => {
+      console.log('Error:', error)
+    })
+})
+
 
 //Error handling
 // The following 2 `app.use`'s MUST follow ALL your routes/middleware
