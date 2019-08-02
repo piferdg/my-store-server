@@ -17,7 +17,6 @@ const Product = db.Product
 //Router files
 
 
-
 //Routes
 app.get('/api/test', (req, res) => {
   res.json({
@@ -42,7 +41,9 @@ app.get('/api/categories', (req, res, next) => {
 })
 
 app.get('/api/products', (req, res, next) => {
-  Product.findAll()
+  Product.findAll({
+    include: [{ model: Category }]
+  })
     .then(products => {
       res.json({
         products
@@ -50,6 +51,22 @@ app.get('/api/products', (req, res, next) => {
     })
     .catch(error => {
       next(error)
+    })
+})
+
+app.get('/api/products/:id', (req, res, next) => {
+  const id = req.params.id
+  
+  Product.findByPk(id, {
+    include: [{ model: Category }]
+  })
+    .then(product => {
+      res.json({
+        product
+      })
+    })
+    .catch(error => {
+      console.log('Error:', error)
     })
 })
 
